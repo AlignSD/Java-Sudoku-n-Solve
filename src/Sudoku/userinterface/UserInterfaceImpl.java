@@ -10,7 +10,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
@@ -213,21 +216,42 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 	
 	@Override
 	public void showDialog(String Message) {
+		Alert dialog = new Alert(Alert.AlertType.CONFIRMATION, messaage, ButtonType.OK);
+		dialog.showAndWait();
 		
+		if (dialog.getResult() == ButtonType.OK) listener.onDialogClick();
 		
 	}
 	
 	@Override
 	public void showError(String Message) {
-		
+		Alert dialog = new Alert(Alert.AlertType.ERROR, messaage, ButtonType.OK);
+		dialog.showAndWait();
 		
 	}
 	
 	@Override
-	public void handle(KeyEvent keyEvent) {
-		
-		
+	public void handle(KeyEvent event) {
+		if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+			if (
+				event.getText().matches("[0-9")	
+			) {
+				int value = Integer.parseInt(event.getText());
+				handleInput(value, event.getSource());
+			} else if (event.getCode() == KeyCode.BACK_SPACE) {
+				handleInput(0, event.getSource());
+			} else {
+				((TextField) event.getSource()).setText("");
+			}
+		} 
+		event.consume();
 	}
 	
-	
+	private void handleInput(int value, Object source) {
+		listener.onSudokuInput(
+		((SudokuTextField) source).getX(),
+		((SudokuTextField) source).getY(),
+		value
+		);
+	}
 }
