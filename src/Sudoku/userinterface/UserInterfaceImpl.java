@@ -1,6 +1,6 @@
 package Sudoku.userinterface;
 
-inport sudoku.problemdomain.SudokuGame;
+import Sudoku.problemdomain.SudokuGame;
 import java.util.HashMap;
 
 import Sudoku.constants.GameState;
@@ -32,7 +32,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 	// private SudokuTextField one, two, three, fout, five..... no SudokuTextFieldivate HashMap<Coordinates, sudokuTextField> textFieldCoordinates;
 	
 	private IUserInterfaceContract.EventListener listener;
-	private HashMap textFieldCoordinates;
+	private HashMap<Object, Object> textFieldCoordinates;
 	
 	private static final double WINDOW_Y = 732;
 	private static final double WINDOW_X = 668;
@@ -184,7 +184,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 	
 	@Override
 	public void updateSquare(int x, int y, int input) {
-		TextField tile = textFieldCoordinates.get(new Coordinates(x, y));
+		TextField tile = (TextField) textFieldCoordinates.get(new Coordinates(x, y));
 		
 		String value = Integer.toString(input);
 		
@@ -198,7 +198,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 	public void updateBoard(SudokuGame game) {
 		for (int xIndex = 0; xIndex < 9; xIndex ++) {
 			for	(int yIndex = 0; yIndex < 9; yIndex ++) {
-				TextField tile = textFieldCoordinates.get(new Coordinates(xIndex, yIndex));
+				TextField tile = (TextField) textFieldCoordinates.get(new Coordinates(xIndex, yIndex));
 				
 				String value = Integer.toString(game.getCopyOfGridState()[xIndex][yIndex]);
 				
@@ -215,8 +215,8 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 	}
 	
 	@Override
-	public void showDialog(String Message) {
-		Alert dialog = new Alert(Alert.AlertType.CONFIRMATION, messaage, ButtonType.OK);
+	public void showDialog(String message) {
+		Alert dialog = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.OK);
 		dialog.showAndWait();
 		
 		if (dialog.getResult() == ButtonType.OK) listener.onDialogClick();
@@ -224,8 +224,8 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 	}
 	
 	@Override
-	public void showError(String Message) {
-		Alert dialog = new Alert(Alert.AlertType.ERROR, messaage, ButtonType.OK);
+	public void showError(String message) {
+		Alert dialog = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
 		dialog.showAndWait();
 		
 	}

@@ -2,6 +2,7 @@ package Sudoku.problemdomain;
 
 import java.io.Serializable;
 
+import Sudoku.computationlogic.SudokuUtilities;
 import Sudoku.constants.GameState;
 
 public class SudokuGame implements Serializable {
