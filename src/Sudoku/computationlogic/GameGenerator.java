@@ -1,5 +1,7 @@
 package Sudoku.computationlogic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import Sudoku.problemdomain.Coordinates;
@@ -7,8 +9,41 @@ import Sudoku.problemdomain.Coordinates;
 import static Sudoku.problemdomain.SudokuGame.GRID_BOUNDARY;
 
 public class GameGenerator {
+	
+
+	private static int[][] unsolveGame(int[][] solvedGame) {
+		Random random = new Random(System.currentTimeMillis());
+		
+		boolean solvable = false;
+		int[][] solvableArray = new int[GRID_BOUNDARY][GRID_BOUNDARY];
+		
+		while(solvable == false) {
+			SudokuUtilities.copySudokuArrayValues(solvedGame, solvableArray);
+			
+			int index = 0;
+			
+			while(index < 40) {
+				int xCoordinate = random.nextInt(GRID_BOUNDARY);
+				int yCoordinate = random.nextInt(GRID_BOUNDARY);
+				
+				if (solvableArray[xCoordinate][yCoordinate] != 0) {
+					solvableArray[xCoordinate][yCoordinate] = 0;
+					index++;
+				}
+			}
+			
+			int[][] toBeSolved = new int[GRID_BOUNDARY][GRID_BOUNDARY];
+			SudokuUtilities.copySudokuArrayValues(solvableArray,  toBeSolved);
+			
+			solvable = SudokuSolver.puzzleIsSolvable(toBeSolved);
+			
+		}
+		
+		return solvableArray;
+	}
+	
 	public static int[][] getNewGameGrid() {return unsolveGame(getSolvedGame());
-}
+	}
 
 	private static int[][] getSolvedGame() {
 		// TODO Auto-generated method stub
@@ -56,10 +91,8 @@ public class GameGenerator {
 					}
 				}
 			}
-			
-			
 		}
-		return new int[0][];
+		return newGrid;
 	}
 
 	private static void clearArray(int[][] newGrid) {

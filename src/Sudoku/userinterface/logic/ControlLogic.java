@@ -2,10 +2,12 @@ package Sudoku.userinterface.logic;
 
 import java.io.IOException;
 
+import Sudoku.constants.GameState;
 import Sudoku.constants.Messages;
 import Sudoku.problemdomain.IStorage;
 import Sudoku.problemdomain.SudokuGame;
 import Sudoku.userinterface.IUserInterfaceContract;
+import Sudoku.computationlogic.GameLogic;
 
 public class ControlLogic implements IUserInterfaceContract.EventListener{
 
@@ -37,7 +39,7 @@ public class ControlLogic implements IUserInterfaceContract.EventListener{
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-			view.showError(Messages.Error);
+			view.showError(Messages.ERROR);
 		}
 	}
 	
