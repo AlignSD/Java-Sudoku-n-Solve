@@ -6,9 +6,6 @@ import Sudoku.buildlogic.SudokuBuildLogic;
 import Sudoku.userinterface.IUserInterfaceContract;
 import Sudoku.userinterface.UserInterfaceImpl;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SudokuApplication extends Application{

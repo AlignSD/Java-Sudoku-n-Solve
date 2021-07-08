@@ -6,6 +6,10 @@ import Sudoku.computationlogic.SudokuUtilities;
 import Sudoku.constants.GameState;
 
 public class SudokuGame implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final GameState gameState;
 	private final int [][] gridState;
 	
